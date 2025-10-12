@@ -5,22 +5,22 @@ const $$ = (q, el = document) => Array.from(el.querySelectorAll(q));
 // Year
 $('#year').textContent = new Date().getFullYear();
 
-// Smooth scroll nav
-$$('.rbx-nav a').forEach(a => {
-	a.addEventListener('click', e => {
-		const id = a.getAttribute('data-target');
-		if (!id) return;
-		e.preventDefault();
-		$('#' + id).scrollIntoView({ behavior: 'smooth', block: 'start' });
-	});
+// Ensure all modals are closed on page load
+$$('.modal').forEach(modal => {
+	modal.hidden = true;
+	delete modal.dataset.open;
 });
+
+// Navigation is now handled by regular links between pages
 
 // Modal system
 const scrim = $('#modal-scrim');
+if (scrim) scrim.hidden = true; // Ensure scrim starts hidden
+
 function openModal(sel) {
 	const modal = $(sel);
 	if (!modal) return;
-	scrim.hidden = false;
+	if (scrim) scrim.hidden = false;
 	modal.hidden = false;
 	modal.dataset.open = '1';
 }
@@ -28,11 +28,15 @@ function closeModal(modal) {
 	if (!modal) return;
 	modal.hidden = true;
 	delete modal.dataset.open;
-	if (!$('.modal[data-open="1"]')) scrim.hidden = true;
+	if (!$('.modal[data-open="1"]') && scrim) scrim.hidden = true;
 }
 $$('[data-open-modal]').forEach(btn => btn.addEventListener('click', () => openModal(btn.getAttribute('data-open-modal'))));
-$$('[data-close-modal]').forEach(btn => btn.addEventListener('click', () => closeModal(btn.closest('.modal'))));
-scrim.addEventListener('click', () => $$('.modal').forEach(m => closeModal(m)));
+$$('[data-close-modal]').forEach(btn => btn.addEventListener('click', (e) => {
+	e.preventDefault();
+	e.stopPropagation();
+	closeModal(btn.closest('.modal'));
+}));
+if (scrim) scrim.addEventListener('click', () => $$('.modal').forEach(m => closeModal(m)));
 
 // About Quiz Game
 const quizData = [
@@ -171,6 +175,7 @@ legoObs.observe($('#lego-game-modal'), { attributes: true, attributeFilter: ['hi
 // Pixel Painter
 (() => {
 	const canvas = /** @type {HTMLCanvasElement} */ ($('#art-canvas'));
+	if (!canvas) return; // Only run if canvas exists
 	const ctx = canvas.getContext('2d');
 	const size = 16; const cell = canvas.width/size;
 	let filled = new Set(); let painting = false;
@@ -189,7 +194,15 @@ legoObs.observe($('#lego-game-modal'), { attributes: true, attributeFilter: ['hi
 	canvas.addEventListener('mousedown', e => { painting = true; const [x,y]=pos(e); filled.add(`${x},${y}`); redraw(); });
 	canvas.addEventListener('mousemove', e => { if (!painting) return; const [x,y]=pos(e); filled.add(`${x},${y}`); redraw(); });
 	window.addEventListener('mouseup', () => painting=false);
-	redraw();
+	
+	// Only initialize when modal opens
+	const artModal = $('#art-game-modal');
+	if (artModal) {
+		const artObs = new MutationObserver(() => { 
+			if (!artModal.hidden) redraw(); 
+		});
+		artObs.observe(artModal, { attributes: true, attributeFilter: ['hidden'] });
+	}
 })();
 
 // Memory Match
@@ -213,7 +226,14 @@ legoObs.observe($('#lego-game-modal'), { attributes: true, attributeFilter: ['hi
 		lock = true; setTimeout(() => { c.revealed=false; first.revealed=false; c.el.classList.remove('revealed'); first.el.classList.remove('revealed'); first=null; lock=false; }, 700);
 	}
 	reset.addEventListener('click', setup);
-	setup();
+	// Only setup when modal opens, not on page load
+	const memoryModal = $('#memory-game-modal');
+	if (memoryModal) {
+		const memoryObs = new MutationObserver(() => { 
+			if (!memoryModal.hidden) setup(); 
+		});
+		memoryObs.observe(memoryModal, { attributes: true, attributeFilter: ['hidden'] });
+	}
 })();
 
 

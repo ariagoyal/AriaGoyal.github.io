@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<title>Aria | Roblox-Themed Personal Site</title>
+	<title>Python | Aria's Roblox-Themed Personal Site</title>
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 	<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&display=swap" rel="stylesheet" />
@@ -49,40 +49,28 @@
 	</header>
 
 	<main id="content" class="content">
-		<section id="hero" class="hero" aria-labelledby="hero-title">
-			<div class="hero-inner">
-				<h1 id="hero-title">Welcome to Aria's Roblox World</h1>
-				<p>Explore my world of coding, LEGO builds, swimming, dancing, and art.</p>
-				<div class="nav-cards">
-					<a class="card nav-card" href="about.html">
-						<div class="card-media emoji">👋</div>
-						<div class="card-content">
-							<h3>About Me</h3>
-							<p>Learn more about me and take a fun quiz!</p>
-						</div>
-					</a>
-					<a class="card nav-card" href="hobbies.html">
-						<div class="card-media emoji">🎯</div>
-						<div class="card-content">
-							<h3>Hobbies</h3>
-							<p>LEGO, swimming, dancing, art + mini-games!</p>
-						</div>
-					</a>
-					<a class="card nav-card" href="scratch.html">
-						<div class="card-media emoji">🎮</div>
-						<div class="card-content">
-							<h3>Scratch Games</h3>
-							<p>Games I made and remixed on Scratch</p>
-						</div>
-					</a>
-					<a class="card nav-card" href="python.html">
-						<div class="card-media emoji">🐍</div>
-						<div class="card-content">
-							<h3>Python</h3>
-							<p>Python projects and pygame games</p>
-						</div>
-					</a>
-				</div>
+		<section class="panel" aria-labelledby="python-title">
+			<div class="panel-header">
+				<h1 id="python-title">Python Projects</h1>
+				<p>I love coding in Python! Here are some of my Python projects and games.</p>
+			</div>
+			<div class="grid">
+				<article class="card project">
+					<div class="card-media emoji">🎲</div>
+					<div class="card-content">
+						<h3>Guess the Number</h3>
+						<p>A fun pygame-based guessing game where you try to guess the secret number with hints!</p>
+						<a class="btn btn-secondary" href="https://github.com/ariagoyal/guessthenumber" target="_blank" rel="noopener">View on GitHub</a>
+					</div>
+				</article>
+				<article class="card project">
+					<div class="card-media emoji">🐍</div>
+					<div class="card-content">
+						<h3>More Python Coming Soon</h3>
+						<p>I'm working on more Python projects including data analysis, web scraping, and more games!</p>
+						<a class="btn btn-secondary" href="#" aria-disabled="true">Coming Soon</a>
+					</div>
+				</article>
 			</div>
 		</section>
 	</main>
@@ -91,8 +79,6 @@
 		<p>© <span id="year"></span> Aria. Built with joy and blocks.</p>
 	</footer>
 
-
 	<script src="script.js"></script>
 </body>
 </html>
-

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Hobbies | Aria's Roblox-Themed Personal Site</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&display=swap" rel="stylesheet" />
+	<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+	<header class="rbx-header">
+		<div class="rbx-brand">Aria<span class="brand-dot">.</span></div>
+		<nav class="rbx-nav" aria-label="Main">
+			<ul>
+				<li>
+					<a class="conn" href="index.html" aria-label="Home">
+						<span class="badge" aria-hidden="true">🏠</span>
+						<span class="conn-label">Home</span>
+					</a>
+				</li>
+				<li>
+					<a class="conn" href="about.html" aria-label="About Me">
+						<span class="badge" aria-hidden="true">A</span>
+						<span class="conn-label">About</span>
+					</a>
+				</li>
+				<li>
+					<a class="conn" href="hobbies.html" aria-label="Hobbies">
+						<span class="badge" aria-hidden="true">H</span>
+						<span class="conn-label">Hobbies</span>
+					</a>
+				</li>
+				<li>
+					<a class="conn" href="scratch.html" aria-label="Scratch Games">
+						<span class="badge" aria-hidden="true">🎮</span>
+						<span class="conn-label">Scratch</span>
+					</a>
+				</li>
+				<li>
+					<a class="conn" href="python.html" aria-label="Python">
+						<span class="badge" aria-hidden="true">🐍</span>
+						<span class="conn-label">Python</span>
+					</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+	<main id="content" class="content">
+		<section class="panel" aria-labelledby="hobbies-title">
+			<div class="panel-header">
+				<h1 id="hobbies-title">Hobbies</h1>
+				<p>Each hobby opens a tiny Roblox-style mini-game. Click the Play button to start!</p>
+			</div>
+			<div class="grid">
+				<div class="card hobby" data-hobby="lego">
+					<div class="card-media emoji">🧱</div>
+					<div class="card-content">
+						<h3>LEGO Builder</h3>
+						<p>Stack bricks! Click to add bricks before the timer runs out.</p>
+						<button class="btn" data-open-modal="#lego-game-modal">Play</button>
+					</div>
+				</div>
+				<div class="card hobby" data-hobby="swim">
+					<div class="card-media emoji">🏊‍♀️</div>
+					<div class="card-content">
+						<h3>Swim Start</h3>
+						<p>Wait for "GO!" then click fast. A reaction-time challenge.</p>
+						<button class="btn" data-open-modal="#swim-game-modal">Play</button>
+					</div>
+				</div>
+				<div class="card hobby" data-hobby="dance">
+					<div class="card-media emoji">🕺</div>
+					<div class="card-content">
+						<h3>Dance Steps</h3>
+						<p>Repeat the arrow sequence like a mini Simon Says.</p>
+						<button class="btn" data-open-modal="#dance-game-modal">Play</button>
+					</div>
+				</div>
+				<div class="card hobby" data-hobby="art">
+					<div class="card-media emoji">🎨</div>
+					<div class="card-content">
+						<h3>Pixel Painter</h3>
+						<p>Fill a tiny canvas; complete to 80% to win.</p>
+						<button class="btn" data-open-modal="#art-game-modal">Play</button>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<footer class="rbx-footer">
+		<p>© <span id="year"></span> Aria. Built with joy and blocks.</p>
+	</footer>
+
+	<!-- Modals -->
+	<div id="modal-scrim" class="modal-scrim" hidden></div>
+
+	<div id="lego-game-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="lego-game-title" hidden>
+		<div class="modal-card">
+			<header class="modal-header">
+				<h3 id="lego-game-title">LEGO Builder</h3>
+				<button class="icon-btn" data-close-modal aria-label="Close">✖</button>
+			</header>
+			<div class="modal-body">
+				<canvas id="lego-canvas" width="320" height="240" class="game-canvas"></canvas>
+				<p class="help">Click to add a brick. Build 20 bricks before 20 seconds!</p>
+			</div>
+		</div>
+	</div>
+
+	<div id="swim-game-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="swim-game-title" hidden>
+		<div class="modal-card">
+			<header class="modal-header">
+				<h3 id="swim-game-title">Swim Start</h3>
+				<button class="icon-btn" data-close-modal aria-label="Close">✖</button>
+			</header>
+			<div class="modal-body">
+				<div class="reaction" id="reaction-panel" aria-live="polite">Wait for GO…</div>
+				<button id="reaction-start" class="btn">Start</button>
+			</div>
+		</div>
+	</div>
+
+	<div id="dance-game-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="dance-game-title" hidden>
+		<div class="modal-card">
+			<header class="modal-header">
+				<h3 id="dance-game-title">Dance Steps</h3>
+				<button class="icon-btn" data-close-modal aria-label="Close">✖</button>
+			</header>
+			<div class="modal-body">
+				<div id="dance-seq" class="dance-seq" aria-live="polite"></div>
+				<div class="dance-controls">
+					<button class="arrow" data-dir="←">←</button>
+					<button class="arrow" data-dir="↑">↑</button>
+					<button class="arrow" data-dir="→">→</button>
+					<button class="arrow" data-dir="↓">↓</button>
+				</div>
+				<button id="dance-start" class="btn">Start Round</button>
+			</div>
+		</div>
+	</div>
+
+	<div id="art-game-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="art-game-title" hidden>
+		<div class="modal-card">
+			<header class="modal-header">
+				<h3 id="art-game-title">Pixel Painter</h3>
+				<button class="icon-btn" data-close-modal aria-label="Close">✖</button>
+			</header>
+			<div class="modal-body">
+				<canvas id="art-canvas" width="240" height="240" class="game-canvas"></canvas>
+				<p class="help">Drag to paint squares. Cover 80% to win.</p>
+			</div>
+		</div>
+	</div>
+
+	<script src="script.js"></script>
+</body>
+</html>
