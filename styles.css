@@ -86,6 +86,10 @@ body {
 .card-content p { margin: 0 0 12px; color: var(--rbx-sub); font-size: 14px; line-height: 1.4; flex: 1; }
 .card-content .btn { margin-top: auto; align-self: flex-start; }
 
+.inline-game { margin-top: 12px; }
+.inline-game .game-canvas { width: 100%; max-width: 300px; }
+.inline-game .help { margin: 8px 0 0; font-size: 12px; }
+
 .rbx-footer { text-align: center; color: var(--rbx-sub); padding: 24px; border-top: 1px solid rgba(255,255,255,0.08); background: #0c0f15; }
 
 /* Modals */
